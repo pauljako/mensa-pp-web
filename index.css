@@ -4,6 +4,10 @@
     padding: 5px;
 }
 
+.menu_item:hover {
+    background-color: gainsboro;
+}
+
 .menu {
     border-spacing: 10px;
 }
