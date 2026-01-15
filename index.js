@@ -1,4 +1,4 @@
-const HOST = "http://localhost:32339"
+const HOST = ""
 
 const COLORS = ["gold", "orange", "PowderBlue"]
 
