@@ -61,10 +61,6 @@ async function cancel_meal(session_id, meal_id) {
 async function fill_menu(session_id) {
     const menus = await fetch_menu(session_id)
 
-    for (const element of document.getElementsByClassName("menu_row")) {
-        element.remove();
-    }
-
     let table = document.getElementById("menu")
 
     table.innerHTML = `<tr>
