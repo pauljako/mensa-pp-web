@@ -8,6 +8,12 @@
     background-color: gainsboro;
 }
 
+.top_text {
+    margin-inline: 10px;
+    flex-basis: 50%;
+    align-content: center;
+}
+
 .menu {
     border-spacing: 10px;
 }

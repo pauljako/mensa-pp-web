@@ -2,6 +2,19 @@ const HOST = ""
 
 const COLORS = ["gold", "orange", "PowderBlue"]
 
+let WeekOffset = 0;
+
+function getWeek(weekOffset) {
+    let currentDate = new Date()
+    currentDate.setHours(0, 0, 0, 0)
+    let currentDayOfWeek = currentDate.getDay()
+    let diff = currentDayOfWeek + (currentDayOfWeek === 0 ? -6 : 1);
+
+    currentDate = new Date(currentDate.valueOf() + (diff * 86400000) + (weekOffset * 604800000))
+
+    return Math.floor(currentDate.valueOf() / 1000)
+}
+
 async function login(user_id, password) {
     let response = await fetch(`${HOST}/api/login`, {
         body: new URLSearchParams({
@@ -22,10 +35,11 @@ async function prompt_login() {
     return await login(user_id, password)
 }
 
-async function fetch_menu(session_id) {
+async function fetch_menu(session_id, timestamp) {
     let response = await fetch(`${HOST}/api/menu`, {
         headers: {
-            "Session-Id": session_id
+            "Session-Id": session_id,
+            "Timestamp": timestamp
         }
     })
 
@@ -59,7 +73,19 @@ async function cancel_meal(session_id, meal_id) {
 }
 
 async function fill_menu(session_id) {
-    const menus = await fetch_menu(session_id)
+
+    document.getElementById("next_week_button").onclick = () => {
+        WeekOffset += 1;
+        fill_menu(session_id);
+    }
+    document.getElementById("last_week_button").onclick = () => {
+        WeekOffset -= 1;
+        fill_menu(session_id);
+    }
+
+    document.getElementById("current_week_text").innerText = `${new Date(getWeek(WeekOffset) * 1000).toDateString()}`;
+
+    const menus = await fetch_menu(session_id, getWeek(WeekOffset))
 
     let table = document.getElementById("menu")
 
