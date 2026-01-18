@@ -26,6 +26,8 @@ async function login(user_id, password) {
 
     if (!response.ok) return undefined
 
+    document.getElementById("name_text").innerText = await response.json()["name"]
+
     return (await response.json())["session_id"]
 }
 
