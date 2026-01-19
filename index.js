@@ -1,4 +1,4 @@
-const HOST = ""
+const HOST = "https://mensa-pp.pauljako.de"
 
 const COLORS = ["gold", "orange", "PowderBlue"]
 
@@ -8,7 +8,19 @@ function getWeek(weekOffset) {
     let currentDate = new Date()
     currentDate.setHours(0, 0, 0, 0)
     let currentDayOfWeek = currentDate.getDay()
-    let diff = currentDayOfWeek + (currentDayOfWeek === 0 ? -6 : 1);
+    let diff;
+
+    switch (currentDayOfWeek) {
+        case 0:
+            diff = 1
+            break;
+        case 7:
+            diff = 2
+            break;
+        default:
+            diff = currentDayOfWeek - 1
+            break;
+    }
 
     currentDate = new Date(currentDate.valueOf() + (diff * 86400000) + (weekOffset * 604800000))
 
@@ -86,7 +98,7 @@ async function fill_menu(session_id) {
         fill_menu(session_id);
     }
 
-    document.getElementById("current_week_text").innerText = `${new Date(getWeek(WeekOffset) * 1000).toDateString()}`;
+    document.getElementById("current_week_text").innerText = `${new Date(getWeek(WeekOffset) * 1000).toDateString()}${WeekOffset === 0 ? " (This Week)" : ""}`;
 
     const menus = await fetch_menu(session_id, getWeek(WeekOffset))
 
