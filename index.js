@@ -26,9 +26,10 @@ async function login(user_id, password) {
 
     if (!response.ok) return undefined
 
-    document.getElementById("name_text").innerText = await response.json()["name"]
+    let data = await response.json()
+    document.getElementById("name_text").innerText = data["name"]
 
-    return (await response.json())["session_id"]
+    return data["session_id"]
 }
 
 async function prompt_login() {
