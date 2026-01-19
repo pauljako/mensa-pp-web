@@ -98,7 +98,9 @@ async function fill_menu(session_id) {
         fill_menu(session_id);
     }
 
-    document.getElementById("current_week_text").innerText = `${new Date(getWeek(WeekOffset) * 1000).toDateString()}${WeekOffset === 0 ? " (This Week)" : ""}`;
+    let currentWeekDate = new Date(getWeek(WeekOffset) * 1000)
+
+    document.getElementById("current_week_text").innerText = `${currentWeekDate.toDateString()}${WeekOffset === 0 ? " (This Week)" : ""}`;
 
     const menus = await fetch_menu(session_id, getWeek(WeekOffset))
 
@@ -106,11 +108,11 @@ async function fill_menu(session_id) {
 
     table.innerHTML = `<tr>
     <th class="menu_item menu_header">Menu</th>
-    <th class="menu_item menu_header">Monday</th>
-    <th class="menu_item menu_header">Tuesday</th>
-    <th class="menu_item menu_header">Wednesday</th>
-    <th class="menu_item menu_header">Thursday</th>
-    <th class="menu_item menu_header">Friday</th>
+    <th class="menu_item menu_header">${currentWeekDate.toDateString()}</th>
+    <th class="menu_item menu_header">${new Date(currentWeekDate.valueOf() + 86400000).toDateString()}</th>
+    <th class="menu_item menu_header">${new Date(currentWeekDate.valueOf() + 86400000 * 2).toDateString()}</th>
+    <th class="menu_item menu_header">${new Date(currentWeekDate.valueOf() + 86400000 * 3).toDateString()}</th>
+    <th class="menu_item menu_header">${new Date(currentWeekDate.valueOf() + 86400000 * 4).toDateString()}</th>
     </tr>`
 
     for (const [menu_id, meals] of Object.entries(menus)) {
