@@ -1,4 +1,4 @@
-const HOST = ""
+const HOST = "http://localhost:32339"
 
 const COLORS = ["gold", "orange", "PowderBlue"]
 
@@ -39,7 +39,7 @@ async function login(user_id, password) {
     if (!response.ok) return undefined
 
     let data = await response.json()
-    document.getElementById("name_text").innerText = data["name"]
+    document.getElementById("name_text").innerHTML = `${data["name"]} &CenterDot; ${data["balance"]}`
 
     return data["session_id"]
 }
