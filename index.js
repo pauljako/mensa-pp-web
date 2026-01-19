@@ -1,4 +1,4 @@
-const HOST = "https://mensa-pp.pauljako.de"
+const HOST = ""
 
 const COLORS = ["gold", "orange", "PowderBlue"]
 
