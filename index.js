@@ -14,9 +14,19 @@ function getWeek(weekOffset) {
         case 0:
             diff = 1
             break;
-        case 7:
+        case 6:
             diff = 2
             break;
+        case 1:
+            diff = 0
+        case 2:
+            diff = -1
+        case 3:
+            diff = -2
+        case 4:
+            diff = -3
+        case 5:
+            diff = -4
         default:
             diff = currentDayOfWeek - 1
             break;
